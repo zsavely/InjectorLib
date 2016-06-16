@@ -58,7 +58,7 @@ public final class Injector {
                 AnnotationProcessor annoProc = null;
 
                 try {
-                    annoProc = annoProcClass.getConstructor().newInstance();
+                    annoProc = annoProcClass.newInstance();
                 } catch (final Exception e) {
                     Log.d(getClass().getSimpleName(), "Could not create AnnotationProcessor", e);
                 }
@@ -117,7 +117,7 @@ public final class Injector {
         }
     }
 
-    static class SavedStateProcessor extends AnnotationProcessor implements BaseAnnotationProcessor {
+    public static class SavedStateProcessor extends AnnotationProcessor implements BaseAnnotationProcessor {
 
         @Override
         protected boolean checkField(final Field field) {

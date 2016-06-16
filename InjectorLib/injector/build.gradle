@@ -21,7 +21,7 @@ group = "com.azoft.injector"
 final def siteUrl = 'https://github.com/mig35/InjectorLib'
 final def gitUrl = "https://github.com/mig35/InjectorLib.git"
 // This is the library version used when deploying the artifact
-version = "0.9"
+version = "0.9.3"
 
 final Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
