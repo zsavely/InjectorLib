@@ -26,3 +26,4 @@ proguard/
 gen
 out
 build
+/InjectorLib/.idea
