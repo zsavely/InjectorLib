@@ -36,6 +36,9 @@ Basicly you should create base class, do steps above and Injector will work with
 	}
 ```
 
+![Example](resources/injector_work_small.gif "working example")
+
+
 # Bellow are examples of Base classes creation.
 
 # Example of usage with Activity.
