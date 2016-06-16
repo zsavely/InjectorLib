@@ -11,7 +11,7 @@ This library allows you to save any primitive, Serializable or Parcelable type o
 
 To work with this library you should:
 * Create Injector instance with Injector.init call;
-* Call injector.applyOnCreate(Bundle) with null or bundle object from your Activity or Fragment instance;
+* Call injector.applyRestoreInstanceState(Bundle) with null or bundle object from your Activity or Fragment instance;
 * Call injector.applyOnSaveInstanceState() with bundle object from your Activity or Fragment instance;
 
 Basicly you should create base class, do steps above and Injector will work with any subclass of this base class.
@@ -27,7 +27,7 @@ Basicly you should create base class, do steps above and Injector will work with
 	    protected void onCreate(final Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 
-	        mInjector.applyOnCreate(this, savedInstanceState);
+	        mInjector.applyRestoreInstanceState(this, savedInstanceState);
 	    }
 
 	    @Override
