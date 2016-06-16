@@ -7,14 +7,13 @@ import com.azoft.injectorlib.Injector;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private Injector mInjector;
+    private final Injector mInjector = Injector.init(getClass());
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mInjector = Injector.init(this);
-        mInjector.applyOnCreate(this, savedInstanceState);
+        mInjector.applyRestoreInstanceState(this, savedInstanceState);
     }
 
     @Override

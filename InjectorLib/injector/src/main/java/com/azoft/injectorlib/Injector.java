@@ -3,6 +3,8 @@ package com.azoft.injectorlib;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Injector {
+public final class Injector {
 
     private static final List<Class<? extends AnnotationProcessor>> PROCS;
     private List<AnnotationProcessor> mProcs;
@@ -32,11 +34,11 @@ public class Injector {
     private Injector() {
     }
 
-    public static Injector init(final Object model) {
+    public static Injector init(@NonNull final Object model) {
         return init(model.getClass());
     }
 
-    private static Injector init(final Class<?> clazz) {
+    public static Injector init(@NonNull final Class<?> clazz) {
         final Injector injector = new Injector();
 
         injector.collectMembers(clazz);
@@ -84,7 +86,7 @@ public class Injector {
         } while (null != klass);
     }
 
-    public void applyOnCreate(final Object model, final Bundle savedState) {
+    public void applyRestoreInstanceState(@NonNull final Object model, @Nullable final Bundle savedState) {
         for (final AnnotationProcessor proc : mProcs) {
             if (proc instanceof BaseAnnotationProcessor) {
                 ((BaseAnnotationProcessor) proc).applyOnCreate(model, savedState);
@@ -92,7 +94,7 @@ public class Injector {
         }
     }
 
-    public void applyOnSaveInstanceState(final Object model, final Bundle outState) {
+    public void applyOnSaveInstanceState(@NonNull final Object model, @NonNull final Bundle outState) {
         for (final AnnotationProcessor proc : mProcs) {
             if (proc instanceof BaseAnnotationProcessor) {
                 ((BaseAnnotationProcessor) proc).applyOnSaveInstanceState(model, outState);
@@ -135,7 +137,7 @@ public class Injector {
         }
 
         @Override
-        public void applyOnCreate(final Object model, final Bundle savedState) {
+        public void applyOnCreate(@NonNull final Object model, @Nullable final Bundle savedState) {
             for (final Field field : getFields()) {
                 final InjectSavedState injectSavedState = field.getAnnotation(InjectSavedState.class);
 
@@ -158,7 +160,7 @@ public class Injector {
 
         @Override
         @SuppressWarnings("unchecked")
-        public void applyOnSaveInstanceState(final Object model, final Bundle outState) {
+        public void applyOnSaveInstanceState(@NonNull final Object model, @NonNull final Bundle outState) {
             for (final Field field : getFields()) {
                 final InjectSavedState injectSavedState = field.getAnnotation(InjectSavedState.class);
 
@@ -352,9 +354,9 @@ public class Injector {
                 tag.append('#');
                 tag.append(field.getName());
 
-                if (model instanceof SaveStateTagGenerator) {
+                if (model instanceof InjectSaveStateTag) {
                     tag.append(':');
-                    tag.append(((SaveStateTagGenerator) model).getSaveStateTag());
+                    tag.append(((InjectSaveStateTag) model).getSaveStateTag());
                 } else {
                     appendTagIfFragment(tag, model);
                 }
@@ -407,8 +409,8 @@ public class Injector {
 
     interface BaseAnnotationProcessor {
 
-        void applyOnCreate(final Object model, final Bundle savedState);
+        void applyOnCreate(@NonNull final Object model, @Nullable final Bundle savedState);
 
-        void applyOnSaveInstanceState(final Object model, final Bundle outState);
+        void applyOnSaveInstanceState(@NonNull final Object model, @NonNull final Bundle outState);
     }
 }

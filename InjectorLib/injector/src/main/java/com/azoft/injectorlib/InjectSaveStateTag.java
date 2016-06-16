@@ -1,6 +1,6 @@
 package com.azoft.injectorlib;
 
-public interface SaveStateTagGenerator {
+public interface InjectSaveStateTag {
 
     String getSaveStateTag();
 }

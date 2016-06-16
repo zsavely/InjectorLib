@@ -16,8 +16,9 @@ import java.io.Serializable;
 
 public class InjectSampleFragment extends Fragment {
 
+    private final Injector mInjector = Injector.init(getClass());
+
     private FragmentInjectSampleBinding mBinding;
-    private Injector mInjector;
 
     @InjectSavedState
     private InnerDataClass mData;
@@ -26,9 +27,7 @@ public class InjectSampleFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mInjector = Injector.init(this);
-
-        mInjector.applyOnCreate(this, savedInstanceState);
+        mInjector.applyRestoreInstanceState(this, savedInstanceState);
 
         if (null == mData) {
             mData = new InnerDataClass();
