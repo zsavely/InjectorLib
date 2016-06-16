@@ -6,7 +6,7 @@ This library allows you to save any primitive, Serializable or Parcelable type o
 ## Integration with Gradle
 
 ```
-    compile 'com.azoft.injector:injector:0.9'
+    compile 'com.azoft.injector:injector:0.9.3'
 ```
 
 To work with this library you should:
