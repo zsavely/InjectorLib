@@ -117,12 +117,12 @@ Basicly you should create base class, do steps above and Injector will work with
 
         private final Injector mInjector = Injector.init(getClass());
 
-	    protected final void onRestoreInstanceState(final Bundle state) {
+	    public final void onRestoreInstanceState(final Bundle state) {
             mInjector.applyRestoreInstanceState(this, state);
 	    }
 
-	    protected final void onSaveInstanceState(final Bundle outState) {
-	        mInjector.applyOnSaveInstanceState(outState);
+	    public final void onSaveInstanceState(final Bundle outState) {
+	        mInjector.applyOnSaveInstanceState(this, outState);
 	    }
     }
 ```
